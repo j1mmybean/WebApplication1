@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>樣式控制 1</title>
+    <link rel="icon" href="./favicon.ico" />
+    <style type="text/css">
+        .main-box {
+            margin: 50px auto;
+            width: 400px;
+            height: 200px;
+            padding: 20px;
+            box-shadow: 5px 5px 10px #999;
+            border: 1px solid #fff;
+            text-align: center;
+        }
+    </style>    
+    <link href="stylesheets/jquery-ui/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="javascripts/jquery-3.6.1.min.js"></script>
+    <script src="javascripts/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#tabs").tabs();
+
+            $("#p1 #div1").hover(
+                function () { $(this).css('font-style', 'italic').css('color', 'blue').css('font-size', '1cm').css('font-weight', 'bold'); },
+                function () { $(this).css('font-style', '').css('color', '').css('font-size', '').css('font-weight', ''); }
+            );
+
+            $("#p2 h3").click(
+                function () {
+                    $("#p2 #div2").css("font-size", "+=2");
+                }
+            );
+
+            $("#p3 #div3").hover(
+                function () {
+                    $(this).css({
+                        'font-style': 'italic',
+                        'color': 'red',
+                        'font-size': '1cm',
+                        'font-weight': 'bold'
+                    });
+                },
+                function () {
+                    $(this).css({
+                        'font-style': '',
+                        'color': '',
+                        'font-size': '',
+                        'font-weight': ''
+                    });
+                }
+            );
+        });
+    </script>
+</head>
+<body>
+    <div id="tabs">
+        <ul>
+            <li><a href="#p1">CSS樣式修改</a></li>
+            <li><a href="#p2">設定CSS累進值</a></li>
+            <li><a href="#p3">使用CSS物件修改樣式</a></li>
+        </ul>
+        <div id="p1">
+            <div class="main-box">
+                <div id="div1">
+                    歡迎來&quot;jQuery and jQuery UI&quot;的程式設計殿堂...
+                </div>
+            </div>
+        </div>
+        <div id="p2">
+            <div class="main-box">
+                <h3>click me, please.</h3>
+                <div id="div2">
+                    歡迎來&quot;jQuery and jQuery UI&quot;的程式設計殿堂...
+                </div>
+            </div>
+        </div>
+        <div id="p3">
+            <div class="main-box">
+                <div id="div3">
+                    歡迎來&quot;jQuery and jQuery UI&quot;的程式設計殿堂...
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

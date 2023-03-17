@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>選擇器2</title>
+    <script src="javascripts/jquery-3.6.1.min.js"></script>
+    <script>
+        $(function () {
+            $("div.c1 div:first-child").css({ color: "red" }); 
+            $("div.c1 div:nth-child(2)").css({ color: "blue" }); 
+            $("div.c1 h4:first-of-type").css({ color: "green" });           
+            $("div.c1 h4:nth-of-type(2)").css({ color: "purple" });
+            //------------------------------------------------//
+            $("div.c2:contains(Java)").css({ "text-decoration": "underline" }); 
+            $("div.c2:has(span)").css({ "color": "red" });
+            $("div.c2:empty").css({ width: "300px", height: "50px", border: "1px blue solid" });
+            //------------------------------------------------//            
+            $("div.c3 .div-c3 > span:eq(0) + span").css({ color: "blue" });
+            $("div.c3 h3:visible").css({ color: "red" });
+            $("div.c3 [title='span 1']").css({ color: "green" });            
+            $("div.c3 [title^='-sp']").css({ "text-decoration": "underline" } );
+        });
+    </script>
+</head>
+<body>
+    <div class="c1">
+        <div>Welcome to jQuery Selectors...</div>
+        <div>Welcome to jQuery Selectors...</div>
+        <h4>***Welcome to jQuery Selectors***</h4>
+        <h4>***Welcome to jQuery Selectors***</h4>
+        <div>Welcome to jQuery Selectors...</div>
+    </div>
+    <hr />
+    <div class="c2">
+        <h4>
+            <span>Java</span>
+            <span>Programming</span>
+        </h4>
+    </div>
+    <div class="c2">JSP</div>
+    <div class="c2">JavaScript</div>
+    <div class="c2"></div>
+    <hr />
+    <div class="c3">
+        <div class="div-c3">
+            <div>
+                <span title="span 1">Welcome to jQuery Selectors1...</span>
+                <br />
+                <span title="+span 2">Welcome to jQuery Selectors2...</span>
+                <br />
+                <span title="-span 3">Welcome to jQuery Selectors3...</span>
+                <br />
+                <span title="*span 4">Welcome to jQuery Selectors4...</span>
+            </div>
+        </div>
+        <div class="div-c3">
+            <span>Welcome to jQuery Selectors5...</span>
+            <span>Welcome to jQuery Selectors6...</span>
+            <span>Welcome to jQuery Selectors7...</span>
+        </div>
+        <h3 style="display:none;">Welcome to jQuery Selectors8...</h3>
+        <h3>Welcome to jQuery Selectors9...</h3>       
+    </div>
+    <hr />
+</body>
+</html>

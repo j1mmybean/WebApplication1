@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>註冊「事件監聽器」進階方法</title>
+    <link rel="icon" href="./favicon.ico" />
+    <style type="text/css">
+        .main-box {
+            margin: 50px auto;
+            width: 400px;
+            height: 200px;
+            padding: 20px;
+            box-shadow: 5px 5px 10px #999;
+            border: 1px solid #fff;
+            text-align: center;
+        }
+    </style>
+    <link href="stylesheets/jquery-ui/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="javascripts/jquery-3.6.1.min.js"></script>
+    <script src="javascripts/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $("#tabs").tabs();
+
+            //.on( events [, selector ] , handler )
+            //  參數selector: 指定您欲對那些後代元素(可以是未來建立的後代元素)註冊事件處理器。(如果省略selector，則註冊的對象為原本的父元素)
+            $("#p1 .main-box").on("mouseenter mouseleave", ":text", function (event) {
+                if (event.type == "mouseenter") {//event.type :傳回事件類型(字串)
+                    $(this).css({ 'background-color': 'yellow' });
+                }
+                else {
+                    $(this).css({ 'background-color': '' });
+                }
+            });
+
+            var inputLabels = ['姓名', '電郵', '手機', '地址'];
+            //動態新增<input>元素
+            $.each(inputLabels, function (index, value) {
+                var s = `<p><label>${value} <input type="text" size="20" /></label></p>`;
+                $("#p1 .main-box").append(s);
+            });
+
+            $("#p2 :text").one("mouseenter mouseleave", function (event) {
+                if (event.type == "mouseenter") {//event.type :傳回事件類型(字串)
+                    $(this).css({ 'background-color': 'lime' });
+                }
+                else {
+                    $(this).css({ 'background-color': '' });
+                }
+            });
+            $("#p2 :text").off("mouseleave");//取消.on()或.one()註冊的事件處理器
+        });
+    </script>
+</head>
+<body>
+    <div id="tabs">
+        <ul>
+            <li><a href="#p1">.on()</a></li>
+            <li><a href="#p2">.off() / .one()</a></li>
+        </ul>
+        <div id="p1">
+            <div class="main-box"></div>
+        </div>
+        <div id="p2">
+            <div class="main-box">
+                <p>
+                    <label>姓名 <input type="text" size="20" /></label>
+                </p>
+                <p>
+                    <label>電郵 <input type="text" size="20" /></label>
+                </p>
+                <p>
+                    <label>手機 <input type="text" size="20" /></label>
+                </p>
+                <p>
+                    <label>地址 <input type="text" size="20" /></label>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

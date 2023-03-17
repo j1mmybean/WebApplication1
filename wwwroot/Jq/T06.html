@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>表單事件(Form Event)</title>
+    <link rel="icon" href="./favicon.ico" />
+    <style type="text/css">
+        .main-box {
+            margin: 50px auto;
+            width: 500px;
+            height: 250px;
+            padding: 20px;
+            box-shadow: 5px 5px 10px #999;
+            border: 1px solid #fff;
+            text-align: center;
+        }
+
+        #p1 form, #p2 form {
+            padding: 10px 10px 10px 10px;
+            text-align: left;
+        }
+
+        #p1 label, #p2 label {
+            display: inline-block;
+            width: 100px;
+            text-align: right;
+            margin: 0 15px 0 0;
+            color: black;
+        }
+
+        #p1 #button1 {
+            margin-left: 120px;
+        }
+
+        #p1 #fail {
+            color: red;
+        }
+
+        #p1 .success {
+            color: blue;
+        }
+
+        #p1 .errMsg {
+            position: absolute;
+            color: red;
+        }
+
+        #p2 fieldset {
+            width: 40%;
+            margin: 5px auto;
+        }
+    </style>
+    <link href="stylesheets/jquery-ui/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="javascripts/jquery-3.6.1.min.js"></script>
+    <script src="javascripts/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#tabs").tabs();
+
+            function createErrMsgElement(input) {
+                var errMsgId = `err-${$(input).attr('id')}`; //例如: err-username
+                var errMsg = $(`<div id='${errMsgId}' class='errMsg'>不可空白!</div>`);
+                $("#p1").append(errMsg);
+                errMsg.position({
+                    of: input, //定位被對準的元素
+                    my: "left+5px center", //定位時本身元素的 x y 位置
+                    at: "right center" //定位時被對準的元素的 x y 位置
+                });
+            }
+            //<input>失去焦點時，檢查其值不可空白
+            $("#p1 :text").blur(function () {
+                var errMsgId = `#err-${$(this).attr('id')}`; //例如: #err-username
+                if ($(this).val() != '') {
+                    if ($(errMsgId).length > 0)
+                        $(errMsgId).remove();
+                }
+                else {
+                    if ($(errMsgId).length <= 0)
+                        createErrMsgElement(this);
+                }
+            });
+            //<form>提交時
+            $('#p1 #login-form').submit(
+                function () {
+                    //重新從頭檢查每個<input>不可空白
+                    $(".errMsg").remove();
+                    var errs = [];
+                    $("#p1 input").each(function () {
+                        if ($(this).val() == '') {
+                            createErrMsgElement(this);
+                            errs.push(this);
+                        }
+                    });
+                    if (errs.length > 0) {
+                        $(errs[0]).focus();
+                        return false;//阻止submit事件預設行為
+                    }                    
+                }
+            ); // end submit
+
+            $("#p2 #select1").change(function () {
+                var s = "";
+                $(":selected", this).each(function () {
+                    s += $(this).html() + "\n";
+                    //s += $(this).text() + "\n"; //.html() vs .text()
+                });
+                $("#p2 textarea").val(`您的專長:\n${s}`);//例如: 您的專長:JavaScript
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="tabs">
+        <ul>
+            <li><a href="#p1">.submit() 與 .blur()</a></li>            
+            <li><a href="#p2">.change()</a></li>
+        </ul>
+        <div id="p1">
+            <div class="main-box">
+                <h2>Login</h2>
+                <div id="formwrapper">
+                    <form method="get" action="login" id="login-form">
+                        <p>
+                            <label for="username">使用者名稱:</label>
+                            <input type="text" name="username" id="username" autocomplete="off">
+                        </p>
+                        <p>
+                            <label for="password">密碼: </label>
+                            <input type="text" name="password" id="password" autocomplete="off">
+                        </p>
+                        <p>
+                            <button id="button1">送出</button> <!--button 預設type='submit'-->
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div id="p2">
+            <div class="main-box">
+                <fieldset>
+                    <legend>請選擇您的專長</legend>
+                    <select id="select1" name="specialty" size="5" multiple> <!--若使用multiple屬性，則size屬性的預設值為4-->                       
+                        <option value="JS">JavaScript</option>
+                        <option value="jQ">jQuery</option>
+                        <option value="CS">CSS</option>
+                        <option value="HTML">HTML</option>
+                    </select>
+                </fieldset>
+                <textarea rows="5" cols="30" style="color:blue;"></textarea>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

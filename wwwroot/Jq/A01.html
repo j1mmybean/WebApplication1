@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="javascripts/jquery-3.6.1.js"></script>
+    <script>
+		function init() {
+            //document.querySelectorAll("div")
+            //$("div:eq(1)").css("color", "red");
+            $("div:eq(1)").mouseover(function (event) {
+                //串聯方法呼叫
+   //             $(event.target).css("color", "red").css("font-size", "2cm").css("font-style", "italic") 
+                $(event.target).css({
+                    color: "red", //無'-'號時去""
+                    //"font-size": "2cm", 
+					"fontSize": "2cm", //可用駝峰式
+                    fontStyle: "italic" //也可去"" 
+			    })
+			})
+            $("div:eq(1)").mouseout(function (event) {
+                //用this代替event.target(觸發事件的元素)
+                $(this).css({
+                    color: "", 
+                    "font-size": "",
+                    fontStyle: "" 
+			    })
+			})
+        }
+    </script>
+</head>
+
+<body onload="init()">
+    <div>
+        歡迎光臨
+    </div>
+    <div>
+        歡迎光臨
+    </div>
+</body>
+</html>
